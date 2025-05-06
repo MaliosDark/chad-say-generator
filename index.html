@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chad Say Generator</title>
+    <title>Chad Say Generator Web</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -59,6 +59,11 @@
                 display: none;
             }
         }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
@@ -82,11 +87,28 @@
             <div class="mb-6">
                 <label class="block text-sm font-medium text-slate-300 mb-2">Chad Style:</label>
                 <div class="flex flex-wrap gap-2">
-                    <button data-chad="1" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200 active">Chad 1</button>
+                    <button data-chad="1" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200 active bg-amber-500 text-slate-900">Chad 1</button>
                     <button data-chad="2" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 2</button>
                     <button data-chad="3" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 3</button>
                     <button data-chad="4" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 4</button>
+                    <button data-chad="5" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 5</button>
+                    <button data-chad="6" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 6</button>
+                    <button data-chad="7" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 7</button>
+                    <button data-chad="8" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 8</button>
                     <button data-chad="random" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Random</button>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-slate-300 mb-2">Color Style:</label>
+                <div class="flex flex-wrap gap-2">
+                    <button data-color="default" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200 active bg-amber-500 text-slate-900">Default</button>
+                    <button data-color="red" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Red</button>
+                    <button data-color="blue" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Blue</button>
+                    <button data-color="green" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Green</button>
+                    <button data-color="purple" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Purple</button>
+                    <button data-color="gradient" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Gradient</button>
+                    <button data-color="random" class="color-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Random</button>
                 </div>
             </div>
 
@@ -96,9 +118,9 @@
                     <button id="copy-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200">
                         <i class="fas fa-copy mr-2"></i>Copy Text
                     </button>
-                    <!-- <button id="download-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200">
+                    <button id="download-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200">
                         <i class="fas fa-download mr-2"></i>Download as Image
-                    </button> -->
+                    </button>
                     <button id="share-btn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition duration-200">
                         <i class="fas fa-share-alt mr-2"></i>Share
                     </button>
@@ -125,30 +147,31 @@
         // Chad data
         const chads = {
             1: {
-                art: `               ⣀⣤⣾⣷⣾⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀      
-             ⠐⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⡟⣿⣿⣶⣄⡀   
-             ⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣸⣿⣇⣿⣿⣿⣿⣿⣆  
-             ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣻⣿⡄ 
-            ⢸⣿⣿⣿⣿⣿⣿⣿⣿⡿⠍⠙⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⡇ 
-            ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⣱⣾⠟ ⢠⠉⠉⠉⠻⣿⣿⡇  
-            ⣽⣿⣿⣿⣿⣿⡿⠛⣡⣶⣿⣧⣤⠸⡟⠂   ⢹⣿⡇  
-           ⢀⣾⣿⣿⣿⣿⠇ ⢈⣥⣿⣿⣿⣿⣿⣷⣆⢰⣆ ⢸⡏   
-           ⣸⣿⣿⣏⣿⡏ ⣾⣾⣿⣿⣿⣿⣿⣿⣿⣿⢻⣿⣷⣾⡃   
-           ⠹⣿⣿⣿⣿⣷⡄⠘⠹⢿⣿⣍⠉⢛⣿⣿⣿⠸⣿⣿⠿⠁   
-            ⢹⢿⣿⣿⣿⣿⣦⣀⣿⣿⣿⣶⣾⣿⣿⣿⡇⠁⠈⡄    
-            ⡟⢺⣿⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟ ⡺⠁   .
-           ⢸ ⢸⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣏⣻⡶⠁  .'\''  
-          ⢀⡿ ⣿⡏⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣬⣿⠇ -'\''    
-⣤⣶⣶⣿⣿⡛⠻⠿⣿⡿⠛⠁⢰⣿⣿⠃⢘⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏           
-⣿⣿⣅⠄⢉⣙⣿⣿⡟   ⠘⣿⡇  ⣿⣦⣿⣿⣿⣿⣿⣿⣿⣟⣻⠇           
-⣿⣿⣿⣿⣿⣿⣿⠇ ⣸ ⡇⢠⣿⣧ ⢠⣿⡿⢿⠿⠋⠙⠛⠛⠛⠛⠋⢀           
-⣿⣿⠏⣸⣿⣿⣿⣧   ⣷⠸⣿⠃⣴⣿⡟⠙⠁     ⣾⣄⣀⡀⠉⠢⣀        
-⣿⣿⣶⣬⣿⣿⣿⣿⣦⡄⣀⡿ ⣿⣿⣇⠹⣷⣤⣾⠇   ⣰⣿⣿⣿⣿⣆ ⠈⠳⡀      
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⢰⣿⣿⡿⢶⣿⣿⡟⢀⣤ ⣰⣿⣿⣿⣿⡿⣭⣷⣄⡀⠘⢄     
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣼⣿⣿⣧⣾⣿⢿⡷⠟⠉ ⠹⠟⠛⢉⠁⡀⠈⠉⠉⠑⢦⡈⠳⡀   
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⠙⢿⣿⣿⣿⣿⠉ ⢀⡉⡦⠄    ⣿ ⠠⠄    ⠑⠠⠉⠒⢄⡀
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⢘⣿⣿⢋⠍⢿⣶⣽⣿⡿⢿⡄  ⣸⡯⡄           ⠙
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣾⣿⣿⣿⣿⣶⣿⣿⣿⣿⣿⣷⣶⣾⣿⣤⣷⣶⣄⣰⣤⣀⣀⣀⣀⣀⣀⣀⣀`,
+                art: `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠀⠀⠀⢀⣴⠟⠉⠀⠀⠀⠈⠻⣦⡀⠀⠀⠀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣷⣀⢀⣾⠿⠻⢶⣄⠀⠀⣠⣶⡿⠶⣄⣠⣾⣿⠗⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⢻⣿⣿⡿⣿⠿⣿⡿⢼⣿⣿⡿⣿⣎⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟⠉⠛⢛⣛⡉⠀⠀⠙⠛⠻⠛⠑⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣧⣤⣴⠿⠿⣷⣤⡤⠴⠖⠳⣄⣀⣹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣀⣟⠻⢦⣀⡀⠀⠀⠀⠀⣀⡈⠻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡿⠉⡇⠀⠀⠛⠛⠛⠋⠉⠉⠀⠀⠀⠹⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡟⠀⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠃⠀⠈⠑⠪⠷⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣾⣿⣿⣿⣦⣼⠛⢦⣤⣄⡀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠑⠢⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⣠⠴⠲⠖⠛⠻⣿⡿⠛⠉⠉⠻⠷⣦⣽⠿⠿⠒⠚⠋⠉⠁⡞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢦⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣾⠛⠁⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢣⠀⠀⠀
+⠀⠀⠀⠀⣰⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣑⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡇⠀⠀
+⠀⠀⠀⣰⣿⣁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣧⣄⠀⠀⠀⠀⠀⠀⢳⡀⠀
+⠀⠀⠀⣿⡾⢿⣀⢀⣀⣦⣾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⣫⣿⡿⠟⠻⠶⠀⠀⠀⠀⠀⢳⠀
+⠀⠀⢀⣿⣧⡾⣿⣿⣿⣿⣿⡷⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⢀⡴⢿⣿⣧⠀⡀⠀⢀⣀⣀⢒⣤⣶⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇
+⠀⠀⡾⠁⠙⣿⡈⠉⠙⣿⣿⣷⣬⡛⢿⣶⣶⣴⣶⣶⣶⣤⣤⠤⠾⣿⣿⣿⡿⠿⣿⠿⢿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇
+⠀⣸⠃⠀⠀⢸⠃⠀⠀⢸⣿⣿⣿⣿⣿⣿⣷⣾⣿⣿⠟⡉⠀⠀⠀⠈⠙⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇
+⠀⣿⠀⠀⢀⡏⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⠿⠿⠛⠛⠉⠁⠀⠀⠀⠀⠀⠉⠠⠿⠟⠻⠟⠋⠉⢿⣿⣦⡀⢰⡀⠀⠀⠀⠀⠀⠀⠁
+⢀⣿⡆⢀⡾⠀⠀⠀⠀⣾⠏⢿⣿⣿⣿⣯⣙⢷⡄⠀⠀⠀⠀⠀⢸⡄⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣿⣻⢿⣷⣀⣷⣄⠀⠀⠀⠀⢸⠀
+⢸⠃⠠⣼⠃⠀⠀⣠⣾⡟⠀⠈⢿⣿⡿⠿⣿⣿⡿⠿⠿⠿⠷⣄⠈⠿⠛⠻⠶⢶⣄⣀⣀⡠⠈⢛⡿⠃⠈⢿⣿⣿⡿⠀⠀⠀⠀⠀⡀
+⠟⠀⠀⢻⣶⣶⣾⣿⡟⠁⠀⠀⢸⣿⢅⠀⠈⣿⡇⠀⠀⠀⠀⠀⣷⠂⠀⠀⠀⠀⠐⠋⠉⠉⠀⢸⠁⠀⠀⠀⢻⣿⠛⠀⠀⠀⠀⢀⠇
+⠀⠀⠀⠀⠹⣿⣿⠋⠀⠀⠀⠀⢸⣧⠀⠰⡀⢸⣷⣤⣤⡄⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡆⠀⠀⠀⠀⡾⠀⠀⠀⠀⠀⠀⢼⡇
+⠀⠀⠀⠀⠀⠙⢻⠄⠀⠀⠀⠀⣿⠉⠀⠀⠈⠓⢯⡉⠉⠉⢱⣶⠏⠙⠛⠚⠁⠀⠀⠀⠀⠀⣼⠇⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⠀⡇
+⠀⠀⠀⠀⠀⠀⠻⠄⠀⠀⠀⢀⣿⠀⢠⡄⠀⠀⠀⣁⠁⡀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⢀⣐⡟⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⢠⡇`,
                 offset: 36,
                 lines: 12
             },
@@ -215,7 +238,7 @@
  ⣀⣀⠤⠖⠛⢋⣡⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣥   ⣀ ⢀⣀⣠⡼
 ⣉⣥⣶⣶⣿⡿⢋⣽⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⡿  ⣾⣿⢸⠟
 ⣿⣿⣿⠟⠋⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⠁ ⣴⣿⡟⢸⡀
-⠈⠉   ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⠹⠃ ⣾⡟⣼⣷⣬⣙⠳⢤⣀
+⠈⠉     ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠹⠃ ⣾⡟⣼⣷⣬⣙⠳⢤⣀
 ⣀⣀⣀⣀⣀⡈⠙⠛⠛⠛⠙⠻⠿⠿⣿⡿  ⣄ ⠏⣄⣿⣇⠘⢿⣿⣶⣌⠳⣄
 ⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣤⣀⠙⠃⢰⡄  ⣸⣿⣾⣿⣄ ⣦⠉⠻⣷⣌⠳⢦⣄⣀
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⠯⣿⣿⣿⣷⣌⢧ ⢠⠿⢟⣀⣉⣭⣠⣬⣿⣆⢻⡋⠓⠲⠮⣝⡛⢷⣤⣀⣀⡀
@@ -223,6 +246,146 @@
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣷  ⠈⠐⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡙⠈⢿⣿⣿⣿⣿⣿⣿⣶⣍⠳⣄`,
                 offset: 34,
                 lines: 11
+            },
+            5: {
+                art: `⠀⠀⠀⠀⠀
+⢀⠀⠀⠀⠀⠀⣀⣴⣶⣶⣶⣶⣶⣶⣶⣦⣄⣀⠀⠀⠀⠀⠀
+⠀⠀⣀⣴⣾⣿⣿⣿⣿⣿⠿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠀
+⠀⠀⣿⣿⣿⣿⣿⣿⠉⠀⠀⠀⠀⠀⠉⠉⠉⠙⢷⡄⠀⠀
+⠀⣼⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡄⠀
+⠀⣿⣿⣿⣿⣿⡿⠛⠁⠀⣠⣾⣿⣶⣤⣤⣄⠀⠀⠀⡇⠀
+⠀⣿⣿⣿⣿⣿⠁⠀⠀⠚⠉⣴⣶⣦⡌⠙⠛⠀⣶⣶⣽⡄
+⣴⡿⠉⠻⣿⣿⠀⠀⠀⠀⠀⠀⠀⠉⠙⠀⠀⢆⣤⣭⡙⡇
+⣿⠀⠉⠇⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠑⡄⠀⡇
+⠻⣍⠑⠇⣿⣿⣿⣷⣦⣄⡀⣀⣠⣤⣼⣦⣀⣠⣤⡇⠀⡇
+⠀⣿⡟⢲⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣴⠇
+⠀⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿⣷⣆⣀⠀⠉⠉⢿⣿⡿
+⠀⣿⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⠀⠀⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⣼⡿⠀⠀⠀⠀⠀⠉⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀
+⣿⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀
+⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⣿⠛⠛⠁` ,
+                offset: 30,
+                lines: 15
+            },
+            6: {
+                art: `⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠛⠃⠉⢉⣉⣁⣁⣠⣤⣤⣤⣤⣠⣀⣈⣈⡀⠉⠛⠻⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡻⠛⠛⢉⣀⣤⣤⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣤⣀⠉⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠃⢁⣠⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣀⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⡿⠋⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⠈⠻⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⡟⠁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠹⣿⣿⣿⣿⣿
+⣿⣿⢿⠋⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠘⢿⣿⣿⣿
+⣿⣿⠃⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠈⣿⣿⣿
+⣿⠇⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡋⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠸⣿⣿
+⡟⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡌⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⣿⣿
+⡇⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢿⣿⡇⠘⠿⠋⢘⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⣿⣿
+⠇⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⢿⣷⣦⠀⣰⣼⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⣿⣿
+⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡈⢻
+⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀
+⡄⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠰⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢛⣿⣿⣿⠀⣿⣿⣆⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀
+⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⢺⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢋⡉⢴⣿⣿⣿⣋⣼⣿⣿⣿⣷⣦⡙⢿⣿⣿⣿⣿⣿⣿⣿⣿⠏⢀
+⡇⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣳⣄⢾⣿⣿⣿⣿⣯⣉⢉⣩⣤⣴⣶⣿⣿⣿⣷⣌⢻⣿⣿⣿⣿⠇⣾⠟⣫⣤⣶⣬⣙⡛⠻⠟⣿⡿⠁⣠⣾
+⣿⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣌⡛⠿⠿⢿⡿⢡⠾⠛⣛⡋⠉⠉⠉⠙⢛⡛⠂⠹⣿⣿⣿⢀⣥⣾⣿⠿⠿⠿⣿⣿⣅⡌⣿⠁⢰⣿⣿
+⣿⡆⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠷⢒⣴⠰⣾⣿⣿⣧⡀⠀⠀⣀⣼⣿⠇⣰⣿⣿⣿⡈⢡⣶⣶⣶⠀⠀⠀⠀⢠⡆⠙⠀⢸⣿⣿
+⣿⣿⡀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢻⣿⣿⣿⣉⣴⣿⣿⣿⣧⣜⠻⣿⣿⣿⣿⣿⣿⠟⡋⢲⣿⣿⣿⣿⣿⣦⡙⢿⣿⣷⣤⣤⣴⠟⣴⣿⣆⠀⣿⣿
+⣿⣿⣷⡀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⠍⢠⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣬⣭⣥⡴⢞⣴⣿⣿⣿⣿⣿⣿⣿⣿⠈⢛⣛⣛⣭⣴⣾⣿⣿⣿⡀⠸⣿
+⣿⣿⣿⣿⣄⠈⢻⣻⣿⣿⣿⣿⣿⣿⣿⡏⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢛⣡⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢀⣶⣦⣭⣭⣽⣿⣿⣿⣿⣷⠀⢻
+⣿⣿⣿⣿⣿⣷⡀⠘⠿⣿⣿⣿⣿⣿⣿⠇⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡗⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⢸
+⣿⣿⣿⣿⣿⣿⣿⣶⣄⠈⠻⢿⣿⣿⣿⣿⡀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢫⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⢠⣾
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⡈⠙⠛⠛⠳⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢣⣼⣿⣿⣿⣿⣿⣿⣿⣿⣇⢨⡙⢿⣿⣿⣿⡿⠟⠃⣀⣴⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡗⠀⣶⣾⣶⡄⠙⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⡀⣿⡛⠛⢿⣿⣿⣿⣿⣿⣿⡟⢸⢡⣿⣿⢿⠏⠀⣴⣾⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠸⣿⣿⣿⡇⢸⣷⣦⣤⣬⣍⣁⠀⣿⣿⣿⣿⡟⣠⣇⢻⣧⢹⣷⣌⠿⣿⣿⣿⣿⣿⠀⡈⣿⣿⠂⢠⣾⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⢠⣷⣿⣿⣿⠁⣽⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⡿⢠⣿⣿⣿⣿⣿⣿⣿⣷⣈⠻⠟⣋⣡⣾⣷⠸⡿⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⣾⣿⣿⣿⡟⠀⣾⣿⣿⣿⣿⣿⣿⠀⢿⣿⡿⢃⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⣛⡻⠿⣿⣿⣿⡀⡇⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⣾⣿⣿⣿⣿⣗⠀⣿⣿⣿⣿⣿⣿⣿⣤⣸⣿⠆⣼⣿⣿⣿⣿⡿⠟⣡⣶⣶⡖⡀⣶⣶⡉⢿⣿⣴⠇⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⡟⠀⣼⣼⣿⣿⣿⣿⣷⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣠⣽⣿⣿⣿⠋⣱⣿⡿⠟⠁⣼⣿⠟⠀⠿⠈⣿⣿⡅⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⠗⠀⣼⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⢶⣶⣶⣿⣷⣬⣴⣶⣿⡶⢀⣿⣿⠰⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡟⠌⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣙⠻⢿⣿⣿⣿⡿⢋⣴⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡇⠀⠚⠻⠿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣬⣭⣥⣶⣿⣿⣿⣿⣿⠠⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣷⣿⣷⣶⣤⣀⠙⠻⠿⣿⣿⣿⠀⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣬⣑⣛⣩⣴⣿⣿⣿⣿⣿⣚⠀⢹⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⡈⠙⠻⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠉⠽⠽⠿⣿⣿⣿⣿⣿⣿⣦⠈⠻⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⡀⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣤⡈⠻⣿⣿⣿⣿⣷⡄⠘⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⢻⣿⣿⣿⣿⣿⡀⢸⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⡈⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣾⣿⣿⣿⣿⠿⠀⣸⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣤⣈⠉⠙⠻⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠋⠉⠉⠉⣁⣤⣾⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⢶⢦⣤⣄⣀⡉⠛⠛⠛⠋⢁⡀⣤⣾⣿⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿`,
+                offset: 35,
+                lines: 10
+            },
+            7: {
+                art: `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⢴⢲⣤⣤⢤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⣾⡿⣻⣿⣽⣦⡙⣯⣩⣾⡛⢦⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠏⣞⣹⣿⣶⣿⣿⣟⣹⣿⣿⡀⣇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣃⣼⣻⣫⡾⡿⠉⠙⠻⠿⠿⢿⣧⡟⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣫⠾⠁⠀⠀⢃⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⠃⠀⢿⣿⣿⣿⠄⢦⣤⡿⠃⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⠿⣾⣿⠀⢀⠀⠉⠉⣿⡄⠻⡿⠃⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣏⣳⣾⣆⣠⣾⡿⣿⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⡿⣿⠷⣯⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⣠⣤⣤⣴⣶⣶⣦⣾⣿⠀⠹⣿⣿⡿⣿⢁⠀⢻⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⣴⣾⣿⣿⣿⣿⣿⣿⣭⣿⣿⣿⣿⣿⠟⠉⠙⣿⠀⠀⢸⣿⡿⢿⣮⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⣠⣿⡿⠋⢨⣿⠟⠋⠉⠉⠉⠛⠻⢿⣿⣿⡄⠀⠀⢻⠀⠀⢸⡟⠀⠀⠀⠀⠉⠉⠢⣄⠀⠀⠀⠀⠀⠀⠀⠀
+⢰⣿⠋⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣿⡂⠀⢘⣧⣠⡟⠀⠀⣤⢖⣴⠂⠀⠀⠈⠳⡀⠀⠀⠀⠀⠀⠀
+⣾⣇⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⣤⣼⣿⣿⣁⣴⣿⣴⠾⠃⠒⠂⢄⡀⠀⠘⠄⡀⠀⠀⠀⠀
+⠈⢿⡆⠀⠀⠀⠘⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠙⢦⡀⠀⠈⠳⡀⠀⠀
+⠀⠈⣿⠀⠀⢰⣾⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⡏⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⡆⠀⠀⠘⣄⠀
+⠀⣠⡟⠁⣰⣿⡟⡬⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠸⡄
+⡞⠋⠀⣠⡿⢿⣆⢡⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇
+⣅⣠⡾⠋⠀⠀⢻⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⣰⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⢀⠀⠀⡏⠀⠀⠀⡸⠀
+⠛⠉⠀⠀⠀⠀⠀⠻⣿⣿⣷⣄⣀⠀⠀⢀⣼⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⢋⣶⡿⠀⠀⠑⢦⠀⠀⡇⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⡙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀⠀⠀⠀⠀⠀⡰⢋⣰⣿⢿⡇⠀⠀⠀⠀⢣⠀⠘⡄
+⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⢷⣤⣿⠿⠟⠛⢿⣿⠿⠿⢿⣿⣷⣶⣤⣀⣼⣴⡞⢻⡏⠸⣇⠀⠀⠀⠀⢀⡇⠀⢳
+⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡄⣿⣧⣤⣤⣤⣸⣟⣀⡀⠀⠀⠹⣿⠉⢉⡵⠋⣠⢼⡇⠀⢿⡄⠀⠀⢀⡎⠀⠀⡞
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡉⣿⠁⠀⠀⠀⢹⣿⠉⠛⠛⠒⠛⢻⡀⢈⡤⢊⡇⠈⢿⣶⠞⢷⡀⠀⢾⠀⠀⠈⡄
+⠀⠀⠀⠀⠀⠀⠀⢀⣾⡏⠳⣿⣶⣦⣤⠶⢾⡿⠲⠦⠤⠤⠤⢾⡁⢈⠔⢉⠇⠀⠈⢿⣷⢼⣿⡆⠀⢣⠀⠀⣸'`,
+                offset: 30,
+                lines: 12
+            },
+            8: {
+                art:`⣀⣤⣤⣴⡶⠶⠶⠶⠶⠶⠶⠶⠶⣦⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⡀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⣀⣤⡶⣟⣛⠉⠁⠀⠀⠀⠀⠀⠀⠀⢀⡤⠤⣄⠀⠀⠀⠉⠉⠛⢶⣤⡀⠀⣰⡟⠁⠀⠈⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⢱⣶⡾⠛⡡⠚⠉⠀⡹⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠈⢻⡿⠏⣤⣄⣀⣴⠟⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⣾⠟⣠⠊⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⢀⠔⢁⡖⠦⠤⠞⠁⢠⡀⠀⠀⠀⠀⢠⠞⢀⣾⡇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⡿⠉⠀⢇⣀⡴⠋⠀⠀⠀⢀⠀⠀⠀⢠⠋⢠⠏⠀⠀⠀⠀⠀⠀⠹⡄⠀⠀⠀⡏⠀⡞⠈⣿⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣼⠃⠀⠀⠀⠈⠀⠀⠀⠀⠀⠈⠳⡄⠀⡏⠀⠏⠀⠀⠀⠀⠀⠀⢀⠀⣇⠀⡀⢀⡇⢰⣇⠀⢹⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣤⡇⢰⣄⠀⠀⠀⠀⠀⠀⠘⡆⠀⣸⠁⢸⡇⠈⠛⠀⢸⣇⠀⠀⠀⣀⠀⠀
+⠀⠀⠀⠀⠀⣾⡧⠤⠤⣄⣀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠹⠇⠈⠉⠀⠀⠀⠀⠀⠀⠀⢹⠀⡇⠀⠀⠀⠀⠀⠀⠀⠙⣷⠾⣿⡟⠀⠀
+⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠈⠙⠲⣄⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⣀⣠⡞⠀⢠⠏⠀⠙⠀⣄⠀⠀⠀⠀⠀⠀⣿⢰⡟⠀⠀⠀
+⣀⣀⣤⣄⡀⢸⡇⠀⢰⠛⢓⣦⡀⠈⢧⡀⠀⠀⠙⣦⡀⠀⢐⡖⢋⣉⣁⣀⣉⣳⡄⠀⢠⡷⠒⠉⠙⠒⢦⡀⣠⡾⠃⣿⠀⠀⠀⠀
+⢛⣿⣻⣿⣷⡈⣷⠀⠸⡄⢸⠀⠘⢦⠀⠳⣄⠀⠀⠀⢉⠑⠸⣍⠁⠈⠿⠿⠃⣩⠇⠀⠘⢷⡉⠹⠿⠿⢛⣿⣿⡇⠀⣿⠀⠀⠀⠀
+⣫⣿⣿⣿⣿⡅⢻⣆⠀⠁⢘⡄⠀⢈⡆⠀⣽⠂⠀⠀⠀⠀⠀⠈⠑⠒⠒⢒⣺⠇⠀⠀⠀⠀⢱⣄⠀⠒⠋⠀⠘⢧⣠⡿⠀⠀⠀⠀
+⡟⠀⣿⣿⠋⣷⠀⠻⠷⣤⣀⡉⠒⢻⡀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠐⠊⠉⠀⠀⠀⠀⠀⠀⣸⠈⠉⠀⠀⠀⠀⣸⡟⠁⠀⠀⠀⠀
+⠁⢀⣿⡿⢸⣿⠀⠀⠀⠈⠙⢿⣆⠀⠉⠀⢻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⢀⣴⡟⠁⠀⠀⠀⠀⠀
+⠀⣾⣿⣿⣾⣿⡀⠀⢀⡀⠀⠈⠻⣦⣤⡴⠋⠙⣷⢤⣤⣄⣀⠀⠀⠀⢠⡞⢠⣄⡀⠀⠀⠀⢿⡇⠀⢀⣴⠿⠋⠀⠀⠀⠀⠀⠀⠀
+⢠⣿⣿⣿⣿⣿⣿⣄⣿⣗⡀⠀⠀⠀⣽⠇⠀⠀⣿⠀⠀⠀⠘⡇⠀⢠⠏⠉⠈⠁⠹⢤⣤⠤⠞⢱⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⣿⣿⣿⣿⣿⣿⣟⣿⣿⣿⠀⠠⣼⠏⠀⠀⠀⡟⠀⠀⠀⠸⠇⠀⡏⠀⠀⠀⣠⠤⢤⡤⢤⡀⠸⠄⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⣿⣿⣿⡉⢹⣿⣿⣿⣿⣿⣦⣼⠏⠀⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠃⠀⠠⣾⠁⠴⠦⠴⠦⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣾⣿⣿⣿⣿⣿⣿⣿⣿⠋⠁⣼⠏⠀⠀⠀⠀⣼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⣀⣀⣀⣠⠋⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠁⠀⠀⠀⠀⠀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠤⠤⠀⠀⠀⠀⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠤⠤⢤⡀⠀⠀⠈⠛⣷⡀⠀⠀⠀⠀⠀⠀⠀
+⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⣸⣧⠀⠀⠀⠀⠀⠀⠀
+⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠓⠦⣤⣀⡀⠀⠀⠀⠀⠀⢀⣸⣠⣤⣴⣾⣿⣿⣷⣦⣄⡀⠀⠀⠀
+⢻⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⣻⠒⠶⠖⠚⠋⠉⣿⣿⣿⣿⣿⣿⣿⡆⠹⡿⣦⡄⠀
+⠎⡽⠻⣿⣿⣿⣿⣿⣿⣆⠀⠤⠈⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠖⠃⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⢤⣧⣸⣿⣦`,
+                offset: 35,
+                lines: 12
+            }
+        };
+
+        // Color data
+        const colors = {
+            default: { class: '', style: '' },
+            red: { class: 'text-red-500', style: 'color: #ef4444' },
+            blue: { class: 'text-blue-500', style: 'color: #3b82f6' },
+            green: { class: 'text-green-500', style: 'color: #10b981' },
+            purple: { class: 'text-purple-500', style: 'color: #8b5cf6' },
+            gradient: { 
+                class: 'gradient-text', 
+                style: 'background: linear-gradient(90deg, #f97316, #ec4899, #6366f1)' 
+            },
+            random: { 
+                class: '', 
+                style: '' 
             }
         };
 
@@ -236,14 +399,17 @@
         const resultDiv = document.getElementById('result');
         const charCount = document.getElementById('char-count');
         const chadStyleBtns = document.querySelectorAll('.chad-style-btn');
+        const colorStyleBtns = document.querySelectorAll('.color-style-btn');
 
-        // Current selected Chad
+        // Current selected Chad and color
         let currentChad = 1;
+        let currentColor = 'default';
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            // Set default Chad style as active
+            // Set default Chad style and color as active
             document.querySelector('.chad-style-btn.active').click();
+            document.querySelector('.color-style-btn.active').click();
         });
 
         // Chad style selection
@@ -257,12 +423,29 @@
                 
                 // Set current Chad
                 if (btn.dataset.chad === 'random') {
-                    currentChad = Math.floor(Math.random() * 4) + 1;
+                    currentChad = Math.floor(Math.random() * 8) + 1;
                 } else {
                     currentChad = parseInt(btn.dataset.chad);
                 }
                 
                 // Regenerate with new Chad
+                generateChad();
+            });
+        });
+
+        // Color style selection
+        colorStyleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                colorStyleBtns.forEach(b => b.classList.remove('active', 'bg-amber-500', 'text-slate-900'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active', 'bg-amber-500', 'text-slate-900');
+                
+                // Set current color
+                currentColor = btn.dataset.color;
+                
+                // Regenerate with new color
                 generateChad();
             });
         });
@@ -299,7 +482,7 @@
                 bubbleLines.unshift('');
             }
 
-            // Merge líneas lado a lado
+            // Merge lines side by side
             const totalLines = Math.max(chadLines.length, bubbleLines.length);
             let combined = '';
 
@@ -309,15 +492,51 @@
                 combined += chadLine.padEnd(35, ' ') + bubbleLine + '\n';
             }
 
-            resultDiv.innerHTML = `<pre>${combined}</pre>`;
+            // Apply color styling
+            let colorStyle = colors[currentColor];
+            if (currentColor === 'random') {
+                const colorKeys = Object.keys(colors).filter(key => key !== 'default' && key !== 'random');
+                const randomColorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+                colorStyle = colors[randomColorKey];
+            }
+
+            // Create the colored ASCII art
+            let coloredArt = '';
+            if (currentColor === 'gradient' || colorStyle.class === 'gradient-text') {
+                // Apply gradient to each character
+                const gradientSteps = 5;
+                const gradientColors = ['#f97316', '#ec4899', '#6366f1', '#3b82f6', '#10b981'];
+                
+                let charIndex = 0;
+                for (let i = 0; i < combined.length; i++) {
+                    const char = combined[i];
+                    if (char.trim()) {
+                        const colorIndex = charIndex % gradientColors.length;
+                        coloredArt += `<span style="color: ${gradientColors[colorIndex]}">${char}</span>`;
+                        charIndex++;
+                    } else {
+                        coloredArt += char;
+                    }
+                }
+            } else {
+                // Apply single color
+                if (colorStyle.class) {
+                    coloredArt = `<span class="${colorStyle.class}">${combined}</span>`;
+                } else if (colorStyle.style) {
+                    coloredArt = `<span style="${colorStyle.style}">${combined}</span>`;
+                } else {
+                    coloredArt = combined;
+                }
+            }
+
+            resultDiv.innerHTML = `<pre>${coloredArt}</pre>`;
             resultContainer.classList.remove('hidden');
             charCount.textContent = message.length;
         }
 
-
         // Event listeners
         generateBtn.addEventListener('click', generateChad);
-        
+                
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 generateChad();
@@ -332,7 +551,7 @@
                     // Show copied notification
                     const originalText = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
-                    
+                                        
                     setTimeout(() => {
                         copyBtn.innerHTML = originalText;
                     }, 2000);
@@ -351,11 +570,11 @@
                     link.download = 'chad-say.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-                    
+                                        
                     // Show downloaded notification
                     const originalText = downloadBtn.innerHTML;
                     downloadBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Downloaded!';
-                    
+                                        
                     setTimeout(() => {
                         downloadBtn.innerHTML = originalText;
                     }, 2000);
@@ -387,7 +606,7 @@
                         // Show shared notification
                         const originalText = shareBtn.innerHTML;
                         shareBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Link Copied!';
-                        
+                                                
                         setTimeout(() => {
                             shareBtn.innerHTML = originalText;
                         }, 2000);
