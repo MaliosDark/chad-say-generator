@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chad Say Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .chad-container {
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            line-height: 1.2;
+        }
+        .speech-bubble {
+            background-color: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-radius: 5px;
+            padding: 10px;
+            position: relative;
+        }
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: #f8fafc;
+            border-left: 0;
+            margin-top: -10px;
+            margin-left: -2px;
+        }
+        .speech-bubble:before {
+            content: '';
+            position: absolute;
+            left: -18px;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: #cbd5e1;
+            border-left: 0;
+            margin-top: -10px;
+        }
+        #result {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        @media (max-width: 768px) {
+            .chad-container {
+                flex-direction: column;
+            }
+            .speech-bubble:after, .speech-bubble:before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-amber-400 mb-2">Chad Say Generator</h1>
+            <p class="text-slate-300">Create epic Chad memes with your own messages</p>
+        </header>
+
+        <div class="max-w-3xl mx-auto bg-slate-800 rounded-xl shadow-xl p-6 mb-8">
+            <div class="mb-6">
+                <label for="message" class="block text-sm font-medium text-slate-300 mb-2">Your Message:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="message" class="flex-1 px-4 py-2 rounded-lg bg-slate-700 border border-slate-600 text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Enter your Chad message..." value="I don't lift weights, weights lift me">
+                    <button id="generate-btn" class="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold rounded-lg transition duration-200">
+                        <i class="fas fa-bolt mr-2"></i>Generate
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-slate-300 mb-2">Chad Style:</label>
+                <div class="flex flex-wrap gap-2">
+                    <button data-chad="1" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200 active">Chad 1</button>
+                    <button data-chad="2" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 2</button>
+                    <button data-chad="3" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 3</button>
+                    <button data-chad="4" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Chad 4</button>
+                    <button data-chad="random" class="chad-style-btn px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition duration-200">Random</button>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-slate-300 mb-2">Actions:</label>
+                <div class="flex flex-wrap gap-2">
+                    <button id="copy-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200">
+                        <i class="fas fa-copy mr-2"></i>Copy Text
+                    </button>
+                    <!-- <button id="download-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200">
+                        <i class="fas fa-download mr-2"></i>Download as Image
+                    </button> -->
+                    <button id="share-btn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition duration-200">
+                        <i class="fas fa-share-alt mr-2"></i>Share
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result-container" class="max-w-5xl mx-auto hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-amber-400">Your Chad Meme</h2>
+                <div class="text-sm text-slate-400">
+                    <span id="char-count">0</span> characters
+                </div>
+            </div>
+            <div id="result" class="chad-container flex items-start gap-4 p-4"></div>
+        </div>
+
+        <div class="mt-12 text-center text-slate-500 text-sm">
+            <p>Made with <i class="fas fa-heart text-red-500"></i> by Malios Dark for Chad memes</p>
+        </div>
+    </div>
+
+    <script>
+        // Chad data
+        const chads = {
+            1: {
+                art: `               ⣀⣤⣾⣷⣾⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀      
+             ⠐⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⡟⣿⣿⣶⣄⡀   
+             ⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣸⣿⣇⣿⣿⣿⣿⣿⣆  
+             ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣻⣿⡄ 
+            ⢸⣿⣿⣿⣿⣿⣿⣿⣿⡿⠍⠙⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⡇ 
+            ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⣱⣾⠟ ⢠⠉⠉⠉⠻⣿⣿⡇  
+            ⣽⣿⣿⣿⣿⣿⡿⠛⣡⣶⣿⣧⣤⠸⡟⠂   ⢹⣿⡇  
+           ⢀⣾⣿⣿⣿⣿⠇ ⢈⣥⣿⣿⣿⣿⣿⣷⣆⢰⣆ ⢸⡏   
+           ⣸⣿⣿⣏⣿⡏ ⣾⣾⣿⣿⣿⣿⣿⣿⣿⣿⢻⣿⣷⣾⡃   
+           ⠹⣿⣿⣿⣿⣷⡄⠘⠹⢿⣿⣍⠉⢛⣿⣿⣿⠸⣿⣿⠿⠁   
+            ⢹⢿⣿⣿⣿⣿⣦⣀⣿⣿⣿⣶⣾⣿⣿⣿⡇⠁⠈⡄    
+            ⡟⢺⣿⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟ ⡺⠁   .
+           ⢸ ⢸⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣏⣻⡶⠁  .'\''  
+          ⢀⡿ ⣿⡏⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣬⣿⠇ -'\''    
+⣤⣶⣶⣿⣿⡛⠻⠿⣿⡿⠛⠁⢰⣿⣿⠃⢘⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏           
+⣿⣿⣅⠄⢉⣙⣿⣿⡟   ⠘⣿⡇  ⣿⣦⣿⣿⣿⣿⣿⣿⣿⣟⣻⠇           
+⣿⣿⣿⣿⣿⣿⣿⠇ ⣸ ⡇⢠⣿⣧ ⢠⣿⡿⢿⠿⠋⠙⠛⠛⠛⠛⠋⢀           
+⣿⣿⠏⣸⣿⣿⣿⣧   ⣷⠸⣿⠃⣴⣿⡟⠙⠁     ⣾⣄⣀⡀⠉⠢⣀        
+⣿⣿⣶⣬⣿⣿⣿⣿⣦⡄⣀⡿ ⣿⣿⣇⠹⣷⣤⣾⠇   ⣰⣿⣿⣿⣿⣆ ⠈⠳⡀      
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⢰⣿⣿⡿⢶⣿⣿⡟⢀⣤ ⣰⣿⣿⣿⣿⡿⣭⣷⣄⡀⠘⢄     
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣼⣿⣿⣧⣾⣿⢿⡷⠟⠉ ⠹⠟⠛⢉⠁⡀⠈⠉⠉⠑⢦⡈⠳⡀   
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⠙⢿⣿⣿⣿⣿⠉ ⢀⡉⡦⠄    ⣿ ⠠⠄    ⠑⠠⠉⠒⢄⡀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⢘⣿⣿⢋⠍⢿⣶⣽⣿⡿⢿⡄  ⣸⡯⡄           ⠙
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣾⣿⣿⣿⣿⣶⣿⣿⣿⣿⣿⣷⣶⣾⣿⣤⣷⣶⣄⣰⣤⣀⣀⣀⣀⣀⣀⣀⣀`,
+                offset: 36,
+                lines: 12
+            },
+            2: {
+                art: `            ⢀⣀⣀⣀⣀⣀⡀            
+        ⢀⣴⣾⣿⣿⣻⡥⢴⣾⠭⠿⢛⣳⣶⣤⣄⣀      
+       ⢠⣿⠟⣉⣵⣫⠴⠚⣩⠤⠖⢋⡩⠞⣩⠞⢋⣽⢷⡄    
+      ⢀⡾⠿⠞⠻⠟⠻⠾⠿⠥⠶⠾⣯⣶⣿⣵⣾⣽⣾⡿⢿    
+      ⡼⠁            ⡏ ⣾⣛⣁⣀⣈⣇   
+     ⢸⠃        ⣠⠤⣄⡀⣰⠃⡼⠁⣀⣤⣤⣈⣽⣇  
+     ⢸        ⢰⣷⣞⣹⣿⡿ ⢷⡾⣿⣿⣿⢛⢻⡋  
+     ⠈⢧       ⢸⣯ ⣿⣿⣧⣄  ⠈⠉⠉ ⠇⢳⡀ 
+      ⠈⠳⣤⣤⣀⣀⣀⣀⣀⣻⣶⡿⢹⣿⣿⣦ ⣀⡀⡴⢂⣀⢀⣧ 
+        ⠈⣇  ⠈⠉⠉⢡⣿⣫⠾⢟⣷⣿⣿⣿⣷⣿⣿⣿⣿  /
+         ⡏     ⢸⡿⢿⣿⠟⣻⣿⢻⣿⣿⣿⣿⡟⠁.
+        ⡼⠁      ⢿⣽⡏⢘⣏⣹⠿⣿⣿⣧⡿⣿⡄ 
+    ⢀⣠⣶⣾⣷⣶⣦⣄⡀   ⠈⠻⣧⣾⣷⠿⣸⣿⠏⡿⣿⣿⣯ 
+ ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡀   ⠨⡟⢾⣿⣹⣼⡗⢻⣷⡿ 
+⠛⠛⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣤⣥⣿⣌⠙⠛⠚⠛⠋  
+      ⠈⠉⠙⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆      
+            ⠈⠙⠛⠻⠿⠿⠿⠿⠿⠿⢿⠇      `,
+                offset: 31,
+                lines: 9
+            },
+            3: {
+                art: `                       ⣀⡄
+                 ⣀⣠⠤⠖⠚⠉⡼ 
+            ⢀⣀⠤⠒⠊⠉    ⡸⠁ 
+         ⣀⠴⠚⠉        ⢰⠃  
+      ⣠⠔⠊           ⢠⠏   
+   ⣀⡴⠯⠒⠒⠒⠒⠒⠦⠤⣄⣀⡀    ⡞    
+ ⢀⡼⠁ ⢠⡄      ⣀⣀⠉⠙⢒⡦⢼⠁    
+ ⡼    ⠳⢤   ⠈⠁⣈⣩⣭⡙⣺       
+⢠⡇     ⠘   ⠐⠯⣯⣿⣼⠝⠘⢆      
+⠘⡇   ⡤⣤⣄          ⠈⢣⡀    
+ ⢷  ⢸⢰⠛⠼ ⣤          ⠳⣄   
+ ⢸⣆ ⠘⣌⡽⠃⣰⡏       ⠞⣉⡁ ⣸⡆  
+ ⣸⠈⠂ ⡤ ⢰⡋         ⠷⣍⠉⠁   
+ ⡟   ⡇  ⠳⢄⡀     ⡿⠤⠤⢬⠇  -*
+ ⡇   ⢷⡀   ⠘      ⠑⢲⠞     
+ ⡇    ⠉⠑⠲⠤⣀⡀      ⠈⠑⠢⡀   
+⢰⠇    ⡇    ⣹⠋⠓⠦⣄   ⣀⣠⠇   
+⠸⠆  ⢀ ⠙⢦⡀ ⢰⠋   ⠈⠉⠉⠉⠉     
+      ⠑⠂⠙⠂⢚              `,
+                offset: 25,
+                lines: 14
+            },
+            4: {
+                art: `             ⢀⣤⠶⠛⠛⠛⠉⠛⠛⠷⠶⠶⣦⣀       
+           ⢀⠞⠋            ⠉⠻⣄     
+          ⡰⠁     ⢀⣴⣶⣤⣤⣤⣀ ⣀⣀⡀⠸⣧    
+         ⢰⠁     ⣠⣿⣿⣿⣿⣿⢿⡿⠂⠈⠹⢿⣦⠘⣧   
+         ⡎     ⠈⣉⣴⣿⣿⠟⠛⠛⠶⠶ ⣦ ⣿⡇⢹⡇  
+         ⡇     ⣾⣿⣿⣋⢠⠄     ⠉ ⠙⢿⠸⣿  
+         ⡗⣠⢀⣄ ⣼⣿⣿⣿⣄⡀     ⣰⡆   ⡀⢸  
+        ⢸ ⠃⠈⢉ ⠻⣿⣿⣿⣿⣿⡶   ⢀⣿⣇  ⢀⠈⣼  
+        ⠸⡄⢀⠙⡿  ⠻⢿⠿⠏⣁⣤⠄  ⠠⠍⢿⡇⢀⢠⣆⢹  
+         ⠹⡏⣡⠁ ⢤    ⠏⠁        ⢸⡏⢸  
+          ⣧⣿ ⢂⡀          ⡀⣀⠲ ⠘⢰⡟  
+          ⢹⣿ ⠈        ⠈⠑⠂ ⠈⠦ ⢀⡿   /
+          ⢸⣿⣦⡀            ⢠⠆⢀⣸⠇ -'\''
+         ⣴⣿⣿⣿⣿⣷⣤⡀           ⢘⠙⣧
+       ⣠⡟⢹⣿⣿⣿⣿⣿⣿⣿⣶⣄  ⠁      ⢉⣰⠇
+ ⣀⣀⠤⠖⠛⢋⣡⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣥   ⣀ ⢀⣀⣠⡼
+⣉⣥⣶⣶⣿⡿⢋⣽⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⡿  ⣾⣿⢸⠟
+⣿⣿⣿⠟⠋⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⠁ ⣴⣿⡟⢸⡀
+⠈⠉   ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⠹⠃ ⣾⡟⣼⣷⣬⣙⠳⢤⣀
+⣀⣀⣀⣀⣀⡈⠙⠛⠛⠛⠙⠻⠿⠿⣿⡿  ⣄ ⠏⣄⣿⣇⠘⢿⣿⣶⣌⠳⣄
+⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣤⣀⠙⠃⢰⡄  ⣸⣿⣾⣿⣄ ⣦⠉⠻⣷⣌⠳⢦⣄⣀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⠯⣿⣿⣿⣷⣌⢧ ⢠⠿⢟⣀⣉⣭⣠⣬⣿⣆⢻⡋⠓⠲⠮⣝⡛⢷⣤⣀⣀⡀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡿⠿⣯⣍⣛⣾⡧⠟ ⠈⠙⣿⣿⣿⣿⣿⣿⣦⡀ ⠰⣶⣶⣽⣶⣶⣬⣭⣙⠻⢦⡀
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣷  ⠈⠐⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡙⠈⢿⣿⣿⣿⣿⣿⣿⣶⣍⠳⣄`,
+                offset: 34,
+                lines: 11
+            }
+        };
+
+        // DOM elements
+        const messageInput = document.getElementById('message');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const resultContainer = document.getElementById('result-container');
+        const resultDiv = document.getElementById('result');
+        const charCount = document.getElementById('char-count');
+        const chadStyleBtns = document.querySelectorAll('.chad-style-btn');
+
+        // Current selected Chad
+        let currentChad = 1;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set default Chad style as active
+            document.querySelector('.chad-style-btn.active').click();
+        });
+
+        // Chad style selection
+        chadStyleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                chadStyleBtns.forEach(b => b.classList.remove('active', 'bg-amber-500', 'text-slate-900'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active', 'bg-amber-500', 'text-slate-900');
+                
+                // Set current Chad
+                if (btn.dataset.chad === 'random') {
+                    currentChad = Math.floor(Math.random() * 4) + 1;
+                } else {
+                    currentChad = parseInt(btn.dataset.chad);
+                }
+                
+                // Regenerate with new Chad
+                generateChad();
+            });
+        });
+
+        // Generate Chad
+        function generateChad() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            const chad = chads[currentChad];
+            const lines = message.split('\n');
+
+            // Find the longest line for padding
+            let maxLen = 0;
+            lines.forEach(line => {
+                if (line.length > maxLen) maxLen = line.length;
+            });
+
+            // Create speech bubble ASCII
+            let speechBubble = '.' + '`'.repeat(maxLen + 2) + '.\n';
+            lines.forEach(line => {
+                const paddedLine = line.padEnd(maxLen, ' ');
+                speechBubble += `: ${paddedLine} :\n`;
+            });
+            speechBubble += '`' + '.'.repeat(maxLen + 2) + '`\n';
+
+            // Convert both to line arrays
+            const chadLines = chad.art.split('\n');
+            const bubbleLines = speechBubble.split('\n');
+
+            // Offset to down
+            const verticalOffset = 9;
+            for (let i = 0; i < verticalOffset; i++) {
+                bubbleLines.unshift('');
+            }
+
+            // Merge líneas lado a lado
+            const totalLines = Math.max(chadLines.length, bubbleLines.length);
+            let combined = '';
+
+            for (let i = 0; i < totalLines; i++) {
+                const chadLine = chadLines[i] || '';
+                const bubbleLine = bubbleLines[i] || '';
+                combined += chadLine.padEnd(35, ' ') + bubbleLine + '\n';
+            }
+
+            resultDiv.innerHTML = `<pre>${combined}</pre>`;
+            resultContainer.classList.remove('hidden');
+            charCount.textContent = message.length;
+        }
+
+
+        // Event listeners
+        generateBtn.addEventListener('click', generateChad);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateChad();
+            }
+        });
+
+        // Copy to clipboard
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = resultDiv.textContent;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Show copied notification
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        });
+
+        // Download as image
+        downloadBtn.addEventListener('click', () => {
+            // Use html2canvas to capture the result div as an image
+            if (typeof html2canvas !== 'undefined') {
+                html2canvas(resultDiv).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'chad-say.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    // Show downloaded notification
+                    const originalText = downloadBtn.innerHTML;
+                    downloadBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Downloaded!';
+                    
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = originalText;
+                    }, 2000);
+                });
+            } else {
+                alert('Please wait a moment and try again. The download feature is loading.');
+                // Load html2canvas if not already loaded
+                const script = document.createElement('script');
+                script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+                document.head.appendChild(script);
+            }
+        });
+
+        // Share
+        shareBtn.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Chad Say Generator',
+                    text: messageInput.value,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const textToShare = `${messageInput.value}\n\nCreated with Chad Say Generator: ${window.location.href}`;
+                navigator.clipboard.writeText(textToShare)
+                    .then(() => {
+                        // Show shared notification
+                        const originalText = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Link Copied!';
+                        
+                        setTimeout(() => {
+                            shareBtn.innerHTML = originalText;
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+            }
+        });
+
+        // Load html2canvas dynamically if needed
+        if (typeof html2canvas === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+            document.head.appendChild(script);
+        }
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>
