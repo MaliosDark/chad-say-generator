@@ -1,81 +1,51 @@
-# Chad Say Generator
+![Image_Generated](image.png)
 
-**Chad Say Generator** is a lightweight, browser-based tool that lets you generate Chad ASCII memes with your own custom messages. It brings the legendary meme energy of *Chad* into a terminal-style ASCII experience, but directly in your browser — with style.
+# Chad Say Generator Web
 
-This project is fully static and built with plain HTML, CSS (Tailwind), and JavaScript. It runs without a server or backend, making it ideal for fun, low-resource meme generation.
-
----
-```
-             ⢀⣤⠶⠛⠛⠛⠉⠛⠛⠷⠶⠶⣦⣀        
-           ⢀⠞⠋              ⠉⠻⣄      
-          ⡰⠁     ⢀⣴⣶⣤⣤⣤⣀ ⣀⣀⡀⠸⣧     
-         ⢰⠁     ⣠⣿⣿⣿⣿⣿⢿⡿⠂⠈⠹⢿⣦⠘⣧    
-         ⡎     ⠈⣉⣴⣿⣿⠟⠛⠛⠶⠶ ⣦ ⣿⡇⢹⡇   
-         ⡇     ⣾⣿⣿⣋⢠⠄     ⠉ ⠙⢿⠸⣿   
-         ⡗⣠⢀⣄ ⣼⣿⣿⣿⣄⡀     ⣰⡆   ⡀⢸   
-        ⢸ ⠃⠈⢉ ⠻⣿⣿⣿⣿⣿⡶   ⢀⣿⣇  ⢀⠈⣼   
-        ⠸⡄⢀⠙⡿  ⠻⢿⠿⠏⣁⣤⠄  ⠠⠍⢿⡇⢀⢠⣆⢹   
-         ⠹⡏⣡⠁ ⢤    ⠏⠁        ⢸⡏⢸   .````````````````````````````````````````````````````.
-          ⣧⣿ ⢂⡀          ⡀⣀⠲ ⠘⢰⡟   : I don't run the code, the code runs because of me. :
-          ⢹⣿ ⠈        ⠈⠑⠂ ⠈⠦ ⢀⡿   /`....................................................`
-          ⢸⣿⣦⡀            ⢠⠆⢀⣸⠇ -'''
-         ⣴⣿⣿⣿⣿⣷⣤⡀           ⢘⠙⣧    
-       ⣠⡟⢹⣿⣿⣿⣿⣿⣿⣿⣶⣄  ⠁      ⢉⣰⠇    
- ⣀⣀⠤⠖⠛⢋⣡⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣥   ⣀ ⢀⣀⣠⡼      
-⣉⣥⣶⣶⣿⡿⢋⣽⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⡿  ⣾⣿⢸⠟         
-⣿⣿⣿⠟⠋⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⠁ ⣴⣿⡟⢸⡀         
-⠈⠉   ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⠹⠃ ⣾⡟⣼⣷⣬⣙⠳⢤⣀      
-⣀⣀⣀⣀⣀⡈⠙⠛⠛⠛⠙⠻⠿⠿⣿⡿  ⣄ ⠏⣄⣿⣇⠘⢿⣿⣶⣌⠳⣄    
-⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣦⣤⣀⠙⠃⢰⡄  ⣸⣿⣾⣿⣄ ⣦⠉⠻⣷⣌⠳⢦⣄⣀
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⠯⣿⣿⣿⣷⣌⢧ ⢠⠿⢟⣀⣉⣭⣠⣬⣿⣆⢻⡋⠓⠲⠮⣝⡛⢷⣤⣀⣀⡀
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡿⠿⣯⣍⣛⣾⡧⠟ ⠈⠙⣿⣿⣿⣿⣿⣿⣦⡀ ⠰⣶⣶⣽⣶⣶⣬⣭⣙⠻⢦⡀
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣷  ⠈⠐⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡙⠈⢿⣿⣿⣿⣿⣿⣿⣶⣍⠳⣄
-
-```
----
-
-## 🚀 Live Preview
-
-Click below to open the app directly
-
-👉 [**Open Chad Say Generator**](https://maliosdark.github.io/chad-say-generator)
+A fun little browser toy to slap your own messages onto epic ASCII “Chads.” No install, no fuss—just open in your browser and start memeing.
 
 ---
 
-## 🪄 About This Project
+## 🚀 Try It Out
 
-This tool is based on the CLI project [chadsay](https://github.com/agvxov/chadsay), reimagined as a web application. It retains the original ASCII art flavor and meme spirit, adapted to a more accessible and visual interface.
-
-The purpose of this project is purely entertainment and fun.
+👉 [Open it live on GitHub Pages](https://maliosdark.github.io/chad-say-generator)
 
 ---
 
-## ✨ Features
+## ✨ What’s Inside
 
-- 🔥 Multiple Chad ASCII templates (4 included)
-- ✍️ Type your own messages (multi-line supported)
-- 📐 Automatic alignment of speech bubbles with the Chad figure
-- 🎨 Clean UI styled with TailwindCSS and responsive layout
-- 📋 Copy-to-clipboard functionality
-- 🔗 Web Share API support for easy sharing
-- 🌑 Dark mode by default
+- **8 Chad styles** (or hit **Random** for surprises)  
+- **Color modes**: default mono, red, blue, green, purple, gradient or random  
+- **Multi-line messages**—type anything you want  
+- Bubble auto-sizes & sits to the right (and a bit down) of your Chad  
+- **Copy** the raw ASCII to clipboard  
+- **Download** a PNG of your masterpiece  
+- **Share** natively via Web Share API  
+- Totally **responsive** and dark-mode by default
 
 ---
 
 ## 🧰 How to Use
 
-1. Open the HTML file in any modern browser.
-2. Enter a custom message in the input field.
-3. Choose one of the Chad styles (or hit **Random**).
-4. Click **Generate** to display your meme.
-5. Use the **Copy** or **Share** button to use your meme anywhere.
+1. Grab the repo (or just click that live link).  
+2. Open **index.html** in any modern browser.  
+3. Type your message, pick a Chad, pick a color.  
+4. Click **Generate** and watch the magic.  
+5. Hit **Copy**, **Download**, or **Share**—and spread those Chad vibes.
 
-No installation, no build steps. Just open and meme.
+Just open it up, mess around, and enjoy.
 
 ---
 
+## 🪄 About
 
-## 👤 HTML Template Author
+Built on the OG [chadsay](https://github.com/agvxov/chadsay) CLI tool. Same meme spirit, but with buttons, colors, and browser magic.
+
+Purely for fun—no servers, no libraries (except Tailwind & html2canvas), zero stress.
+
+---
+
+## 👤 Who Made This
 
 **Malios Dark**  
 GitHub: [@MaliosDark](https://github.com/MaliosDark)  
