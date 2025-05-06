@@ -1,4 +1,4 @@
-![Image_Generated](image.png)
+![Image_Generated](chad-say.png)
 
 # Chad Say Generator Web
 
